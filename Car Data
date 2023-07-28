@@ -1,0 +1,103 @@
+CREATE SCHEMA cars;
+USE cars;
+
+-- Read data 
+SELECT * FROM car_dekho;
+
+-- Total cars: To get a count of total records 
+SELECT COUNT(*) FROM car_dekho;
+
+-- The manager asked the employee how many cars will be available in 2023? --
+SELECT COUNT(*) FROM car_dekho
+WHERE year = 2023;
+
+-- The manager asked the employee how many cars is available in 2020, 2021, 2022? 
+SELECT COUNT(*) FROM car_dekho WHERE year = 2020;
+SELECT COUNT(*) FROM car_dekho WHERE year = 2021;
+SELECT COUNT(*) FROM car_dekho WHERE year = 2022;
+-- GROUP BY 
+SELECT COUNT(*) FROM car_dekho WHERE year IN (2020, 2021, 2022) GROUP BY year;
+
+-- Client asked me to prinit the total of all cars by year, i don't see all the details 
+SELECT year, COUNT(*) FROM car_dekho GROUP BY year;
+
+-- Client asked to a car dealer agent how many diesel cars will there be in 2020?
+SELECT COUNT(*) 
+FROM car_dekho
+WHERE fuel = 'diesel' AND YEAR = 2020;
+
+-- Client asked a second hand dealer agent How many petrol cars will there be in 2020?
+SELECT COUNT(*) 
+FROM car_dekho
+WHERE fuel = 'petrol' AND YEAR = 2020;
+
+-- Manager told the employee to give the print of all the fuel cars (petrol, diesel and CNG) come by all year
+SELECT year, COUNT(*) FROM car_dekho WHERE fuel = 'petrol' GROUP BY year;
+SELECT year, COUNT(*) FROM car_dekho WHERE fuel = 'diesel' GROUP BY year;
+SELECT year, COUNT(*) FROM car_dekho WHERE fuel = 'CNG' GROUP BY year;
+
+-- Manager said where more than 100 cars in a given year, which year had more than 100 cars?
+SELECT Year, COUNT(*)
+FROM car_dekho
+GROUP BY YEAR
+HAVING COUNT(*) > 100;
+
+-- Manager said where less than 100 cars in a given year, which year had more than 100 cars?
+SELECT Year, COUNT(*)
+FROM car_dekho
+GROUP BY YEAR
+HAVING COUNT(*) < 100;
+
+-- The manager said to the employee all cars count details between 2015 and 2023; we need a complete list 
+SELECT COUNT(*)
+FROM car_dekho
+WHERE YEAR BETWEEN 2015 AND 2023;
+
+-- The manager said to the employee all cars details between 2015 to 2023; we need a complete list 
+SELECT *
+FROM car_dekho
+WHERE YEAR BETWEEN 2015 AND 2023;
+
+-- Show details of year, fuel, seller type and car owner type
+SELECT year, fuel, seller_type, owner
+FROM car_dekho;
+
+-- Show the name and the engine for 'Audi A3 35 TDI Premium Plus', 'BMW 3 Series 320d' and 'BMW 3 Series 320d GT Luxury Line'.
+SELECT name, engine 
+FROM car_dekho
+  WHERE name IN ('Audi A3 35 TDI Premium Plus', 'BMW 3 Series 320d', 'BMW 3 Series 320d GT Luxury Line');
+  
+-- Show cars that are selling for 100000
+SELECT name, selling_price 
+FROM car_dekho 
+WHERE selling_price = '100000';
+
+-- Show cars name and year that are selling for 500000
+SELECT name, selling_price, year 
+FROM car_dekho 
+WHERE selling_price = '500000';
+
+-- show cars that the transmission is manual 
+SELECT name, transmission, year
+FROM car_dekho 
+WHERE transmission = 'manual';
+
+-- show cars whose engine are 998 CC with the name and max power
+SELECT name, engine, max_power
+FROM car_dekho 
+WHERE engine = '998 CC';
+
+-- Showing Data by first owner
+SELECT *
+FROM car_dekho
+WHERE owner = 'first owner';
+
+-- Show the Car name that are bmw .
+SELECT name, year
+FROM car_dekho
+WHERE name LIKE '%BMW%';
+
+-- Show the Car name that are NISSAN .
+SELECT name, year
+FROM car_dekho
+WHERE name LIKE '%Nissan%';
